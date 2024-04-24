@@ -5,6 +5,7 @@ Coastal Echoes is an innovative project combining real-time environmental data w
 
 ## Project Goals
 The main objective of Coastal Echoes is to integrate real-time environmental data with Internet of Things technology to generate dynamic representations of coastal environments, helping target users such as shell collectors, surfers, and beachgoers understand and visualize tidal and wind impacts in real-time.
+
 ![image](https://github.com/ucfnchb/0021_Group-Prototype/assets/146268411/6a6c78ec-37d7-48a3-bc7a-b0236b874a3e)
 
 ## Product Video: https://www.youtube.com/watch?v=u9kxgSY_1j8
@@ -41,8 +42,10 @@ git clone https://github.com/ucfnchb/0021_Group-Prototype.git
 1.Print the required 3D parts using the model source files provided in the repository's 3D_Models folder.Laser cut from the wave dxf file<br>
 2.Assemble the hardware according to the assembly diagrams and instructions found in the Diagrams folder. This includes fitting together the 3D-printed parts and the electronic components.<br>
 3.Install the LED strips, servo motors, and the Arduino Uno WiFi Rev2 on the assembled hardware.
+
 ![image](https://github.com/ucfnchb/0021_Group-Prototype/assets/146268411/d557beed-3214-48d9-b503-385abf4a6cb6)
 4. Material for enclosure provided below: 3mm Acrylic board, clear Acetate sheets, Florescent Paint.
+
 ![image](https://github.com/ucfnchb/0021_Group-Prototype/assets/146268411/bc395aac-5f5e-4a4c-80db-b90528b92922)
 
 ### Arduino Configuration
