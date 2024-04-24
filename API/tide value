@@ -4,8 +4,8 @@ import json
 import time
 
 # Configuration information for the MQTT Broker
-mqtt_broker = "***************"
-mqtt_topic = "**************"
+mqtt_broker = "mqtt.cetools.org"
+mqtt_topic = "student/ucfnhy0/wind"
 username = "**********"  # Replace with your MQTT username
 password = "**********"  # Replace with your MQTT password
 
