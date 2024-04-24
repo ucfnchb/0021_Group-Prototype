@@ -1,0 +1,80 @@
+import paho.mqtt.client as mqtt
+import requests
+from datetime import datetime, timedelta
+import time
+
+# Configuration information for the MQTT Broker
+mqtt_broker = "mqtt.cetools.org"
+mqtt_topic = "student/ucfnhy0/wind"
+username = "********"  # Replace with your MQTT username
+password = "********"  # Replace with your MQTT password
+
+# API URL for Newhaven wind speed
+api_url = "https://api.open-meteo.com/v1/forecast?latitude=50.78&longitude=0.057&hourly=wind_speed_10m"
+
+# Function to get the nearest whole hour time of the current time
+def get_latest_full_hour():
+    now = datetime.utcnow()
+    now = now - timedelta(minutes=now.minute, seconds=now.second, microseconds=now.microsecond)
+    # If it's more than 5 minutes past the hour, go back to the previous hour
+    if now.minute > 5:
+        now = now - timedelta(hours=1)
+    return now.strftime('%Y-%m-%dT%H:%M')
+
+# Function to publish wind speed data
+def publish_wind_speed(client):
+    try:
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            data = response.json()
+            times = data['hourly']['time']
+            wind_speeds = data['hourly']['wind_speed_10m']
+            latest_time_str = get_latest_full_hour()
+            if latest_time_str in times:
+                latest_index = times.index(latest_time_str)
+                latest_wind_speed = wind_speeds[latest_index]
+                print(f"Latest wind speed for {latest_time_str}: {latest_wind_speed} km/h")
+                client.publish(mqtt_topic, payload=latest_wind_speed, qos=0)
+            else:
+                print(f"Latest full hour time {latest_time_str} not in data")
+        else:
+            print(f"API request failed with status code: {response.status_code}")
+    except Exception as e:
+        print(f"Error fetching wind speed: {e}")
+
+# MQTT client callback functions
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        print("Connected to MQTT Broker!")
+    else:
+        print(f"Failed to connect, return code {rc}")
+
+def on_message(client, userdata, msg):
+    print(f"Received message '{msg.payload.decode()}' on topic '{msg.topic}' with QoS {msg.qos}")
+
+# Create an MQTT client instance
+client = mqtt.Client(protocol=mqtt.MQTTv311)
+client.username_pw_set(username, password)
+
+# Set callback functions
+client.on_connect = on_connect
+client.on_message = on_message
+
+# Connect to the MQTT Broker
+try:
+    client.connect(mqtt_broker, 1884, 60)
+    client.loop_start()  # Start the non-blocking network loop
+except Exception as e:
+    print(f"Error connecting to MQTT Broker: {e}")
+    exit(1)
+
+# Main thread loop to periodically send API requests
+update_interval = 3600 # Set the update interval to 1 hour
+next_update_time = datetime.utcnow()
+
+while True:
+    current_time = datetime.utcnow()
+    if current_time >= next_update_time:
+        publish_wind_speed(client)
+        next_update_time = current_time + timedelta(seconds=update_interval)
+    time.sleep(10)  # Check every 10 seconds if it's time to update
