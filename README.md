@@ -68,3 +68,4 @@ The design process involved meticulous planning and execution, focusing on creat
 ## Future Work
 Future enhancements will focus on integrating predictive features to forecast unfavorable tidal and wind conditions. We are also exploring options to enhance the device's durability and functionality over prolonged use.
 ## Contact
+Project manager: Stella Chen yanjun.chen.23@ucl.ac.uk
