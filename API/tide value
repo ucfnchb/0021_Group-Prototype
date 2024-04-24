@@ -1,0 +1,71 @@
+import paho.mqtt.client as mqtt
+import requests
+import json
+import time
+
+# Configuration information for the MQTT Broker
+mqtt_broker = "***************"
+mqtt_topic = "**************"
+username = "**********"  # Replace with your MQTT username
+password = "**********"  # Replace with your MQTT password
+
+# Track the last tidal level for use when new data is unavailable
+last_tidal_level = None
+
+# Fetch data from the Newhaven tidal level monitoring station
+measure_id = "E73139-level-tidal_level-Mean-15_min-mAOD"
+api_url = f'http://environment.data.gov.uk/flood-monitoring/id/measures/{measure_id}/readings?latest'
+
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        print("Connected to MQTT Broker!")
+    else:
+        print(f"Failed to connect, return code {rc}")
+    client.subscribe(mqtt_topic)
+
+def on_message(client, userdata, msg):
+    print(f"Received message '{msg.payload.decode()}' on topic '{msg.topic}' with QoS {msg.qos}")
+
+def update_and_publish_tidal_level():
+    global last_tidal_level
+    try:
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            data = response.json()
+            if 'items' in data and data['items']:
+                tidal_level = data['items'][0].get('value')
+                last_tidal_level = tidal_level  # Update the last tidal level information
+            else:
+                print("No new data, using last known tidal level.")
+        else:
+            print(f"API request failed with status code: {response.status_code}, using last known tidal level.")
+    except Exception as e:
+        print(f"Error fetching tidal level: {e}")
+
+    # Publish using the last known tidal level information
+    if last_tidal_level is not None:
+        print(f"Publishing tidal level: {last_tidal_level}")
+        client.publish(mqtt_topic, payload=last_tidal_level, qos=0)
+    else:
+        print("No tidal level data available to publish.")
+
+# Create an MQTT client instance
+client = mqtt.Client(protocol=mqtt.MQTTv311)
+client.username_pw_set(username, password)  # Set MQTT username and password
+
+# Set callback functions
+client.on_connect = on_connect
+client.on_message = on_message
+
+# Attempt to connect to the MQTT Broker
+try:
+    client.connect(mqtt_broker, 1884, 60)
+    client.loop_start()
+except Exception as e:
+    print(f"Error connecting to MQTT Broker: {e}")
+    exit(1)
+
+# Use a timing loop to periodically update tidal level information
+while True:
+    update_and_publish_tidal_level()
+    time.sleep(600)  # Update every 10 minutes
