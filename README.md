@@ -29,20 +29,20 @@ The main objective of Coastal Echoes is to integrate real-time environmental dat
 ```bash
 git clone https://github.com/ucfnchb/0021_Group-Prototype.git
 ```
-2.Navigate to the cloned directory and locate the Python scripts for retrieving data from the environmental APIs. These scripts are designed to publish data to MQTT topics. Run these scripts in your chosen environment (local or cloud-based).
+2.Navigate to the cloned directory and locate the Python scripts for retrieving data from the environmental APIs. These scripts are designed to publish data to MQTT topics. Run these scripts in your chosen environment (local or cloud-based).<br>
 3.Locate the Arduino Code folder in the repository, which contains the scripts for the Arduino. You will upload these scripts to the Arduino board in later steps.
 ### Hardware Assembly
-1.Print the required 3D parts using the model source files provided in the repository's 3D_Models folder.
-2.Assemble the hardware according to the assembly diagrams and instructions found in the Diagrams folder. This includes fitting together the 3D-printed parts and the electronic components.
+1.Print the required 3D parts using the model source files provided in the repository's 3D_Models folder.<br>
+2.Assemble the hardware according to the assembly diagrams and instructions found in the Diagrams folder. This includes fitting together the 3D-printed parts and the electronic components.<br>
 3.Install the LED strips, servo motors, and the Arduino Uno WiFi Rev2 on the assembled hardware.
 ### Arduino Configuration
-1.Open the Arduino IDE and install the necessary libraries (MQTT, Servo, and WiFiNINA) via the Library Manager. 
-2.Open the Arduino scripts provided in the Arduino Code folder. 
-3.Configure the scripts with the correct MQTT topics that the Python scripts are publishing to.
-https://github.com/ucfnchb/0021_Group-Prototype/tree/main/API
-4.Upload the scripts to your Arduino board, ensuring that it's connected to your computer via USB.
-https://github.com/ucfnchb/0021_Group-Prototype/tree/main/Arduino%20Code
-5.Connect the Arduino to the local Wi-Fi network as instructed in the script comments.
+1.Open the Arduino IDE and install the necessary libraries (MQTT, Servo, and WiFiNINA) via the Library Manager. <br>
+2.Open the Arduino scripts provided in the Arduino Code folder. <br>
+3.Configure the scripts with the correct MQTT topics that the Python scripts are publishing to.<br>
+https://github.com/ucfnchb/0021_Group-Prototype/tree/main/API<br>
+4.Upload the scripts to your Arduino board, ensuring that it's connected to your computer via USB.<br>
+https://github.com/ucfnchb/0021_Group-Prototype/tree/main/Arduino%20Code<br>
+5.Connect the Arduino to the local Wi-Fi network as instructed in the script comments.<br>
 6.Once the setup is complete, the Arduino board should start receiving data from MQTT and controlling the LED strips and servo motors accordingly, reflecting the real-time environmental data in the physical prototype.
 ### Usage
 * USB Power
