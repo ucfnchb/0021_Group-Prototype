@@ -9,6 +9,7 @@ The main objective of Coastal Echoes is to integrate real-time environmental dat
 ![image](https://github.com/ucfnchb/0021_Group-Prototype/assets/146268411/6a6c78ec-37d7-48a3-bc7a-b0236b874a3e)
 
 ## Product Video: https://www.youtube.com/watch?v=u9kxgSY_1j8
+For more Information please see uploaded Powerpoint Presentations.
 ## Features
 * Real-Time Data Visualization: Using tide and wind data to illustrate their effects on wave motion and beach coverage.
 * Physical Prototype: Features a motorized mechanism that simulates ocean wave movements correlated with real-time wind speed data.
@@ -44,6 +45,7 @@ git clone https://github.com/ucfnchb/0021_Group-Prototype.git
 3.Install the LED strips, servo motors, and the Arduino Uno WiFi Rev2 on the assembled hardware.
 
 ![image](https://github.com/ucfnchb/0021_Group-Prototype/assets/146268411/d557beed-3214-48d9-b503-385abf4a6cb6)
+
 4. Material for enclosure provided below: 3mm Acrylic board, clear Acetate sheets, Florescent Paint.
 
 ![image](https://github.com/ucfnchb/0021_Group-Prototype/assets/146268411/bc395aac-5f5e-4a4c-80db-b90528b92922)
@@ -62,7 +64,7 @@ https://github.com/ucfnchb/0021_Group-Prototype/tree/main/Arduino%20Code<br>
 * Connect the device to a WiFi network.
 * The device will automatically start receiving data and simulating the environmental conditions of the NewHeaven coast.
 ## Prototype Design
-The design process involved meticulous planning and execution, focusing on creating a responsive visualization that is both accurate and pleasing to the eye. For detailed design descriptions, see DesignDocs.
+The design process involved meticulous planning and execution, focusing on creating a responsive visualization that is both accurate and pleasing to the eye. For detailed design descriptions, Please see attached DesignDocs. 
 ## Future Work
 Future enhancements will focus on integrating predictive features to forecast unfavorable tidal and wind conditions. We are also exploring options to enhance the device's durability and functionality over prolonged use.
 ## Contact
